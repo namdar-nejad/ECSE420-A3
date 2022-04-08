@@ -1,4 +1,4 @@
-package ca.mcgill.ecse420.a3;
+package ca.mcgill.ecse420.a3.utils;
 
 public class Matrix {
     int dim;

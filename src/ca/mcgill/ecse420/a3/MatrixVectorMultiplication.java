@@ -6,7 +6,7 @@ import java.util.Date;
 public class MatrixVectorMultiplication {
 
     private static final int NUMBER_THREADS = 5;
-    private static final int MATRIX_SIZE = 5000;
+    private static final int MATRIX_SIZE = 128;
 
 
     public static void main(String[] args) {
@@ -22,17 +22,17 @@ public class MatrixVectorMultiplication {
         end = new Date();
         System.out.println("\nsequential multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
-//        start = new Date();
-//        double[] out_par = ParallelMatrixVectorMultiplication.multiply(M, v);
-//        end = new Date();
-//        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
-
         start = new Date();
-        double[] out_prac_par = PracticalParallelMatrixVectorMultiplication.multiply(M, v, NUMBER_THREADS);
+        double[] out_par = ParallelMatrixVectorMultiplication.multiply(M, v);
         end = new Date();
-        System.out.println("\npractical parallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
-        System.out.println("\nEqual: " + Arrays.equals(out_seq, out_prac_par));
+//        start = new Date();
+//        double[] out_prac_par = PracticalParallelMatrixVectorMultiplication.multiply(M, v, NUMBER_THREADS);
+//        end = new Date();
+//        System.out.println("\npractical parallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+
+//        System.out.println("\nEqual: " + Arrays.equals(out_seq, out_prac_par));
 
 //        System.out.println("\nv: " + Arrays.toString(v));
 //        System.out.println("\nSequential:\t" + Arrays.toString(out_seq));

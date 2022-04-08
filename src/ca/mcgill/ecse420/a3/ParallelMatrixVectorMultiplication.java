@@ -1,5 +1,8 @@
 package ca.mcgill.ecse420.a3;
 
+import ca.mcgill.ecse420.a3.utils.Matrix;
+import ca.mcgill.ecse420.a3.utils.Vector;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
