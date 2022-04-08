@@ -1,11 +1,11 @@
-package ca.mcgill.ecse420.a1;
+package ca.mcgill.ecse420.a3;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class MatrixMultiplication {
+public class MatrixVectorMultiplication {
 
     private static final int NUMBER_THREADS = 4;
     private static final int MATRIX_SIZE = 1000;
