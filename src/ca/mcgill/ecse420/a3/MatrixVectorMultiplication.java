@@ -1,5 +1,6 @@
 package ca.mcgill.ecse420.a3;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,30 +9,29 @@ import java.util.concurrent.TimeUnit;
 public class MatrixVectorMultiplication {
 
     private static final int NUMBER_THREADS = 4;
-    private static final int MATRIX_SIZE = 1000;
+    private static final int MATRIX_SIZE = 5;
 
     public static void main(String[] args) {
 
         // Generate two random matrices, same size
-        double[][] a = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
-        double[][] b = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
+        double[][] M = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
+        double[] v = generateRandomVector(MATRIX_SIZE);
 
-        multiplyTimed(a, b);
+//        multiplyTimed(M, v);
     }
 
     /**
-     * Returns the result of a sequential matrix multiplication
-     * The two matrices are randomly generated
+     * Returns the result of a sequential matrix-vector multiplication
+     * The matrix and vector are randomly generated
      *
-     * @param a is the first matrix
-     * @param b is the second matrix
+     * @param M is the matrix
+     * @param v is the vector
      * @return the result of the multiplication
      */
-    public static double[][] sequentialMultiplyMatrix(double[][] a, double[][] b) {
-
-        // check if the matrix dimensions are correct
-        // the number of columns in a should be equal to the number of rows in b
-        if (a[0].length != b.length) {
+    public static double[] sequentialMatrixVectorMultiplication(double[][] M, double[] v) {
+        // check if the dimensions are correct
+        // the number of columns in M should be equal to the number of elements in v
+        if (M[0].length != v.length) {
             try {
                 throw new Exception("Invalid input");
             } catch (Exception e) {
@@ -39,25 +39,16 @@ public class MatrixVectorMultiplication {
             }
         }
 
-        /*
-        aRows is the number of rows in matrix a
-        bRows is the number of rows in matrix b
-        aColumns is the number of columns in matrix a which is equal to the number of columns in matrix b
-        prod is the product matrix
-         */
-        int aRows = a.length;
-        int bColumns = b[0].length;
-        int aColumns = a[0].length;
-        double[][] prod = new double[aRows][bColumns];
+        int m = M.length;
+        int n = v.length;
+        double[] prod = new double[m];
 
         /*
-        multiply each row of matrix a with each column of matrix b and store the results in prod, as we would on paper
+        multiply each row of matrix a with the vector
          */
-        for (int i = 0; i < aRows; i++) {
-            for (int j = 0; j < bColumns; j++) {
-                for (int k = 0; k < aColumns; k++) {
-                    prod[i][j] += a[i][k] * b[k][j];
-                }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                prod[i] += M[i][j] * v[j];
             }
         }
 
@@ -152,27 +143,27 @@ public class MatrixVectorMultiplication {
     }
 
 
-    /**
-     * multiplies the matracies by using the sequentialMultiplyMatrix and parallelMultiplyMatrix method
-     * prints the time it tool to complete the task using each method.
-     *
-     * @param a first matrix to be multiplied
-     * @param b second matrix to be multiplied
-     */
-    public static void multiplyTimed(double[][] a, double[][] b) {
-        Date start, end;
-        double[][] res;
-
-        start = new Date();
-        res = sequentialMultiplyMatrix(a, b);
-        end = new Date();
-        System.out.println("\nsequential multiplication (milli seconds): " + (end.getTime() - start.getTime()));
-
-        start = new Date();
-        res = parallelMultiplyMatrix(a, b);
-        end = new Date();
-        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
-    }
+//    /**
+//     * multiplies the matracies by using the sequentialMultiplyMatrix and parallelMultiplyMatrix method
+//     * prints the time it tool to complete the task using each method.
+//     *
+//     * @param a first matrix to be multiplied
+//     * @param b second matrix to be multiplied
+//     */
+//    public static void multiplyTimed(double[][] a, double[][] b) {
+//        Date start, end;
+//        double[][] res;
+//
+//        start = new Date();
+//        res = sequentialMultiplyMatrix(a, b);
+//        end = new Date();
+//        System.out.println("\nsequential multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+//
+//        start = new Date();
+//        res = parallelMultiplyMatrix(a, b);
+//        end = new Date();
+//        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+//    }
 
     /**
      * Populates a matrix of given size with randomly generated integers between 0-10.
@@ -189,6 +180,20 @@ public class MatrixVectorMultiplication {
             }
         }
         return matrix;
+    }
+
+    /**
+     * Populates a vector of given size with randomly generated integers between 0-10.
+     *
+     * @param num number of elements
+     * @return vector
+     */
+    private static double[] generateRandomVector(int num) {
+        double vector[] = new double[num];
+        for (int i = 0; i < num; i++) {
+            vector[i] = (double) ((int) (Math.random() * 10.0));
+        }
+        return vector;
     }
 
 }
