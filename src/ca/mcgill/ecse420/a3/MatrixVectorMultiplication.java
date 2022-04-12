@@ -21,24 +21,17 @@ public class MatrixVectorMultiplication {
         end = new Date();
         System.out.println("\nsequential multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
-//        start = new Date();
-//        double[] out_par = ParallelMultiplier.multiply(M, v);
-//        end = new Date();
-//        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+        start = new Date();
+        double[] out_par = ParallelMultiplier.multiply(M, v);
+        end = new Date();
+        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
         start = new Date();
         double[] out_prac_par = PracticalParallelMultiplier.multiply(M, v, NUMBER_THREADS);
         end = new Date();
         System.out.println("\npractical parallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
-//        System.out.println("\nEqual: " + Arrays.equals(out_seq, out_prac_par));
-
-//        System.out.println("\nv: " + Arrays.toString(v));
-//        System.out.println("\nSequential:\t" + Arrays.toString(out_seq));
-//        System.out.println("\nParallel:\t" + Arrays.toString(out_par));
     }
-
-
 
     /**
      * Populates a matrix of given size with randomly generated integers between 0-10.
