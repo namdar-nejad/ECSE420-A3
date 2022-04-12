@@ -1,6 +1,6 @@
 package ca.mcgill.ecse420.a3;
 
-public class SequentialMatrixVectorMultiplication {
+public class SequentialMultiplier {
     /**
      * Returns the result of a sequential matrix-vector multiplication
      * The matrix and vector are randomly generated

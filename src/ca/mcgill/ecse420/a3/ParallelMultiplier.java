@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class ParallelMatrixVectorMultiplication {
+public class ParallelMultiplier {
 
     private static ExecutorService executor;
 

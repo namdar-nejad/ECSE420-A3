@@ -1,12 +1,11 @@
 package ca.mcgill.ecse420.a3;
 
-import java.util.Arrays;
 import java.util.Date;
 
 public class MatrixVectorMultiplication {
 
-    private static final int NUMBER_THREADS = 5;
-    private static final int MATRIX_SIZE = 128;
+    private static final int NUMBER_THREADS = 8;
+    private static final int MATRIX_SIZE = 10000;
 
 
     public static void main(String[] args) {
@@ -18,19 +17,19 @@ public class MatrixVectorMultiplication {
         Date start, end;
 
         start = new Date();
-        double[] out_seq = SequentialMatrixVectorMultiplication.multiply(M, v);
+        double[] out_seq = SequentialMultiplier.multiply(M, v);
         end = new Date();
         System.out.println("\nsequential multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
-        start = new Date();
-        double[] out_par = ParallelMatrixVectorMultiplication.multiply(M, v);
-        end = new Date();
-        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
-
 //        start = new Date();
-//        double[] out_prac_par = PracticalParallelMatrixVectorMultiplication.multiply(M, v, NUMBER_THREADS);
+//        double[] out_par = ParallelMultiplier.multiply(M, v);
 //        end = new Date();
-//        System.out.println("\npractical parallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+//        System.out.println("\nparallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
+
+        start = new Date();
+        double[] out_prac_par = PracticalParallelMultiplier.multiply(M, v, NUMBER_THREADS);
+        end = new Date();
+        System.out.println("\npractical parallel multiplication (milli seconds): " + (end.getTime() - start.getTime()));
 
 //        System.out.println("\nEqual: " + Arrays.equals(out_seq, out_prac_par));
 
